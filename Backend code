@@ -1,0 +1,18 @@
+from flask import Flask, jsonify, request
+from models.glucose_model import predict_glucose
+from models.fall_detection import detect_fall
+
+app = Flask(__name__)
+
+@app.route('/health-data', methods=['POST'])
+def receive_data():
+    data = request.json
+    predictions = predict_glucose(data['glucose_levels'])
+    fall_risk = detect_fall(data['motion_data'])
+    return jsonify({
+        'glucose_predictions': predictions,
+        'fall_risk': fall_risk
+    })
+
+if __name__ == '__main__':
+    app.run(debug=True)
