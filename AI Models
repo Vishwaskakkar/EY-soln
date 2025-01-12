@@ -1,0 +1,12 @@
+import numpy as np
+from sklearn.linear_model import LinearRegression
+
+# Dummy predictive model
+def predict_glucose(glucose_data):
+    # Simulated regression for demonstration
+    model = LinearRegression()
+    X = np.arange(len(glucose_data)).reshape(-1, 1)
+    y = np.array(glucose_data)
+    model.fit(X, y)
+    prediction = model.predict([[len(glucose_data) + 1]])[0]
+    return prediction
